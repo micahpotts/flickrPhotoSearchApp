@@ -3,10 +3,15 @@
 $(document).ready(function() {
 	$('form').submit(function(evt) {
 		evt.preventDefault();
+		var $searchTerm = $('#search');
+		var $submitButton = $('#submit');
+
+		$searchTerm.prop("disabled", true);
+		$submitButton.prop("disabled", true).val("searching....");
 		var flickrAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
-		var searchTerm = $('#search').val();
+		var search = $searchTerm.val();
 		var flickrOptions = {
-			tags: searchTerm,
+			tags: search,
 			format: "json"
 		};
 		function displayPhotos(data) {
@@ -18,6 +23,8 @@ $(document).ready(function() {
 			});
 			photoHTML += '</ul>';
 			$('#photos').html(photoHTML);
+			$searchTerm.prop("disabled", false);
+			$submitButton.prop("disabled", false).val("Search");
 		}
 		$.getJSON(flickrAPI, flickrOptions, displayPhotos);
 	});
