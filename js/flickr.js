@@ -8,5 +8,6 @@ $(document).ready(function() {
 	$('button').click(function() {
 		$('button').removeClass('selected');
 		$(this).addClass('selected');
+		$.getJSON(flickrAPI, flickrOptions, displayPhotos);
 	});
 }); //end ready
